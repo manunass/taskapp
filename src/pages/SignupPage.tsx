@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from '../fStyles/SignupPage.styles';
 
 const signupSchema = z.object({
@@ -26,6 +27,10 @@ type SignupFormData = z.infer<typeof signupSchema>;
 const SignupPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const { signUp } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -37,12 +42,31 @@ const SignupPage: React.FC = () => {
 
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
+    setError(null);
+    setSuccess(null);
+    
     try {
-      // TODO: Implement actual signup logic with Supabase
-      console.log('Signup data:', data);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    } catch (error) {
-      console.error('Signup error:', error);
+      const { error, data: signUpData } = await signUp(data.email, data.password);
+      
+      if (error) {
+        setError(error.message);
+      } else {
+        // Check if email confirmation is required
+        if (signUpData.user && !signUpData.session) {
+          setSuccess(
+            'Account created successfully! Please check your email to confirm your account before signing in.'
+          );
+        } else {
+          // User is automatically signed in
+          setSuccess('Account created successfully! Redirecting...');
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        }
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+      console.error('Signup error:', err);
     } finally {
       setIsLoading(false);
     }
@@ -59,6 +83,18 @@ const SignupPage: React.FC = () => {
         </CardHeader>
 
         <CardContent>
+          {error && (
+            <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+              <p className="text-sm text-destructive">{error}</p>
+            </div>
+          )}
+
+          {success && (
+            <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-md">
+              <p className="text-sm text-green-800">{success}</p>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.inputGroup}>
               <Label htmlFor="email" className={styles.label}>

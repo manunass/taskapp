@@ -6,14 +6,11 @@ import {
   Plus,
   Home,
   Settings,
-  User,
-  LogOut,
   Menu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Sheet,
   SheetContent,
@@ -21,6 +18,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import UserProfile from '@/components/UserProfile';
 import styles from '../fStyles/HomePage.styles';
 
 const HomePage: React.FC = () => {
@@ -106,14 +104,6 @@ const HomePage: React.FC = () => {
             <Settings size={20} />
             {!sidebarCollapsed && <span>Settings</span>}
           </Button>
-          <Button variant="ghost" className={styles.navItem}>
-            <User size={20} />
-            {!sidebarCollapsed && <span>Profile</span>}
-          </Button>
-          <Button variant="ghost" className={styles.navItem}>
-            <LogOut size={20} />
-            {!sidebarCollapsed && <span>Logout</span>}
-          </Button>
         </div>
       </div>
 
@@ -128,10 +118,7 @@ const HomePage: React.FC = () => {
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              <Avatar>
-                <AvatarImage src="/avatars/user.jpg" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
+              <UserProfile />
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="sm" className="md:hidden">

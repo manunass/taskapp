@@ -38,3 +38,4 @@ pnpm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
+SUPABASE_SETUP.md
