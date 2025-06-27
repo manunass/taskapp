@@ -9,7 +9,7 @@ export const createProject = async (
   const { data, error } = await supabase.rpc('create_project', {
     p_name: name,
     p_description: description,
-    p_admin_id: admin_id
+    p_admin_id: admin_id,
   });
   if (error) throw error;
   return data;
@@ -22,7 +22,9 @@ export const getProject = async (id: string) => {
 };
 
 export const listUserProjects = async (userId: string) => {
-  const { data, error } = await supabase.rpc('list_user_projects', { p_user_id: userId });
+  const { data, error } = await supabase.rpc('list_user_projects', {
+    p_user_id: userId,
+  });
   if (error) throw error;
   return data;
 };

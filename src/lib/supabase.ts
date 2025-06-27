@@ -13,8 +13,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: true
-  }
+    detectSessionInUrl: true,
+  },
 });
 
 // Auth types for better TypeScript support
@@ -51,4 +51,4 @@ export type AuthSession = {
   expires_at?: number;
   token_type: string;
   user: AuthUser;
-}; 
+};

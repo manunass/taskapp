@@ -18,8 +18,14 @@ import { useAuth } from '@/contexts/AuthContext';
 import styles from '../fStyles/SignupPage.styles';
 
 const signupSchema = z.object({
-  firstName: z.string().min(1, 'First name is required').max(50, 'First name must be less than 50 characters'),
-  lastName: z.string().min(1, 'Last name is required').max(50, 'Last name must be less than 50 characters'),
+  firstName: z
+    .string()
+    .min(1, 'First name is required')
+    .max(50, 'First name must be less than 50 characters'),
+  lastName: z
+    .string()
+    .min(1, 'Last name is required')
+    .max(50, 'Last name must be less than 50 characters'),
   email: z.string().email('Please enter a valid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
@@ -46,17 +52,13 @@ const SignupPage: React.FC = () => {
     setIsLoading(true);
     setError(null);
     setSuccess(null);
-    
+
     try {
-      const { error } = await signUp(
-        data.email, 
-        data.password, 
-        {
-          firstName: data.firstName,
-          lastName: data.lastName,
-        }
-      );
-      
+      const { error } = await signUp(data.email, data.password, {
+        firstName: data.firstName,
+        lastName: data.lastName,
+      });
+
       if (error) {
         setError(error.message);
       } else {

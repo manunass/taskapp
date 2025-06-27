@@ -47,10 +47,10 @@ const LoginPage: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const { error } = await signIn(data.email, data.password);
-      
+
       if (error) {
         setError(error.message);
       } else {

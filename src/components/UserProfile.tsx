@@ -24,10 +24,7 @@ const UserProfile: React.FC = () => {
   };
 
   const getUserInitials = (email: string) => {
-    return email
-      .split('@')[0]
-      .slice(0, 2)
-      .toUpperCase();
+    return email.split('@')[0].slice(0, 2).toUpperCase();
   };
 
   if (!user) {
@@ -39,9 +36,7 @@ const UserProfile: React.FC = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarFallback>
-              {getUserInitials(user.email || '')}
-            </AvatarFallback>
+            <AvatarFallback>{getUserInitials(user.email || '')}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -75,4 +70,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile; 
+export default UserProfile;

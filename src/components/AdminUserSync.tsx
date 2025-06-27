@@ -14,8 +14,11 @@ const AdminUserSync: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
-  
+  const [result, setResult] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
+
   const { syncUserToCustomTable } = useAuth();
 
   const handleSync = async () => {
@@ -28,15 +31,25 @@ const AdminUserSync: React.FC = () => {
     setResult(null);
 
     try {
-      const { error, success } = await syncUserToCustomTable(email, firstName, lastName);
-      
+      const { error, success } = await syncUserToCustomTable(
+        email,
+        firstName,
+        lastName
+      );
+
       if (success) {
-        setResult({ success: true, message: 'User synced successfully to custom table' });
+        setResult({
+          success: true,
+          message: 'User synced successfully to custom table',
+        });
         setEmail('');
         setFirstName('');
         setLastName('');
       } else {
-        setResult({ success: false, message: error?.message || 'Failed to sync user' });
+        setResult({
+          success: false,
+          message: error?.message || 'Failed to sync user',
+        });
       }
     } catch (err) {
       setResult({ success: false, message: 'An unexpected error occurred' });
@@ -61,7 +74,7 @@ const AdminUserSync: React.FC = () => {
             placeholder="user@example.com"
           />
         </div>
-        
+
         <div>
           <Label htmlFor="firstName">First Name</Label>
           <Input
@@ -72,7 +85,7 @@ const AdminUserSync: React.FC = () => {
             placeholder="John"
           />
         </div>
-        
+
         <div>
           <Label htmlFor="lastName">Last Name</Label>
           <Input
@@ -84,20 +97,18 @@ const AdminUserSync: React.FC = () => {
           />
         </div>
 
-        <Button 
-          onClick={handleSync} 
-          disabled={isLoading}
-          className="w-full"
-        >
+        <Button onClick={handleSync} disabled={isLoading} className="w-full">
           {isLoading ? 'Syncing...' : 'Sync User'}
         </Button>
 
         {result && (
-          <div className={`p-3 rounded-md ${
-            result.success 
-              ? 'bg-green-50 border border-green-200 text-green-800' 
-              : 'bg-red-50 border border-red-200 text-red-800'
-          }`}>
+          <div
+            className={`p-3 rounded-md ${
+              result.success
+                ? 'bg-green-50 border border-green-200 text-green-800'
+                : 'bg-red-50 border border-red-200 text-red-800'
+            }`}
+          >
             {result.message}
           </div>
         )}
@@ -106,4 +117,4 @@ const AdminUserSync: React.FC = () => {
   );
 };
 
-export default AdminUserSync; 
+export default AdminUserSync;

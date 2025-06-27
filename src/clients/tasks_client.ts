@@ -13,7 +13,7 @@ export const createTask = async (
     p_description: description,
     p_status: status,
     p_project: project,
-    p_assignee: assignee
+    p_assignee: assignee,
   });
   if (error) throw error;
   return data;
@@ -31,7 +31,7 @@ export const updateTask = async (
     p_name: name,
     p_description: description,
     p_status: status,
-    p_assignee: assignee
+    p_assignee: assignee,
   });
   if (error) throw error;
   return data;
@@ -46,14 +46,16 @@ export const deleteTask = async (id: string) => {
 export const assignTask = async (task_id: string, user_id: string) => {
   const { data, error } = await supabase.rpc('assign_task', {
     p_task_id: task_id,
-    p_user_id: user_id
+    p_user_id: user_id,
   });
   if (error) throw error;
   return data;
 };
 
 export const listTasks = async (projectId: string) => {
-  const { data, error } = await supabase.rpc('list_tasks', { p_project_id: projectId });
+  const { data, error } = await supabase.rpc('list_tasks', {
+    p_project_id: projectId,
+  });
   if (error) throw error;
   return data;
 };
@@ -68,7 +70,7 @@ export const searchTasks = async (
     p_query: query,
     p_assignee: assignee,
     p_start: start,
-    p_end: end
+    p_end: end,
   });
   if (error) throw error;
   return data;

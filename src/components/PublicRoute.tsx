@@ -29,4 +29,4 @@ const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
   return <>{children}</>;
 };
 
-export default PublicRoute; 
+export default PublicRoute;

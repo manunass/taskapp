@@ -5,6 +5,7 @@ import PublicRoute from '@/components/PublicRoute';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import HomePage from './pages/HomePage';
+import ProjectPage from './pages/ProjectPage';
 import Board from './components/Board';
 
 function App() {
@@ -42,6 +43,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <HomePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/project/:projectId"
+              element={
+                <ProtectedRoute>
+                  <ProjectPage />
                 </ProtectedRoute>
               }
             />
