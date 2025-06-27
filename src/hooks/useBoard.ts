@@ -11,98 +11,31 @@ export interface BoardData {
   updatedAt: Date;
 }
 
+// Initialize with empty columns instead of mock data
 const initialColumns: ColumnData[] = [
   {
     id: 'todo',
     title: 'To Do',
     color: 'bg-gray-500',
-    tasks: [
-      {
-        id: '1',
-        title: 'Design new landing page',
-        description:
-          'Create wireframes and mockups for the new landing page design',
-        priority: 'high' as const,
-        assignee: {
-          name: 'John Doe',
-          initials: 'JD',
-        },
-        dueDate: '2024-01-15',
-        tags: ['Design', 'Frontend'],
-      },
-      {
-        id: '2',
-        title: 'Set up database schema',
-        description:
-          'Design and implement the database structure for the new features',
-        priority: 'medium' as const,
-        assignee: {
-          name: 'Jane Smith',
-          initials: 'JS',
-        },
-        dueDate: '2024-01-20',
-        tags: ['Backend', 'Database'],
-      },
-    ],
+    tasks: [],
   },
   {
     id: 'in-progress',
     title: 'In Progress',
     color: 'bg-blue-500',
-    tasks: [
-      {
-        id: '3',
-        title: 'Implement user authentication',
-        description: 'Add login and registration functionality with JWT tokens',
-        priority: 'high' as const,
-        assignee: {
-          name: 'Mike Johnson',
-          initials: 'MJ',
-        },
-        dueDate: '2024-01-18',
-        tags: ['Auth', 'Security'],
-      },
-    ],
+    tasks: [],
   },
   {
     id: 'review',
     title: 'Review',
     color: 'bg-yellow-500',
-    tasks: [
-      {
-        id: '4',
-        title: 'Code review for API endpoints',
-        description:
-          'Review the REST API implementation and suggest improvements',
-        priority: 'medium' as const,
-        assignee: {
-          name: 'Sarah Wilson',
-          initials: 'SW',
-        },
-        dueDate: '2024-01-22',
-        tags: ['Code Review', 'API'],
-      },
-    ],
+    tasks: [],
   },
   {
     id: 'done',
     title: 'Done',
     color: 'bg-green-500',
-    tasks: [
-      {
-        id: '5',
-        title: 'Setup project structure',
-        description:
-          'Initialize the project with proper folder structure and dependencies',
-        priority: 'low' as const,
-        assignee: {
-          name: 'Alex Brown',
-          initials: 'AB',
-        },
-        dueDate: '2024-01-10',
-        tags: ['Setup', 'DevOps'],
-      },
-    ],
+    tasks: [],
   },
 ];
 

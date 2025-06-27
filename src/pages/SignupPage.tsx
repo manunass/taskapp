@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, Loader2, User } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,6 +18,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import styles from '../fStyles/SignupPage.styles';
 
 const signupSchema = z.object({
+  firstName: z.string().min(1, 'First name is required').max(50, 'First name must be less than 50 characters'),
+  lastName: z.string().min(1, 'Last name is required').max(50, 'Last name must be less than 50 characters'),
   email: z.string().email('Please enter a valid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
@@ -46,23 +48,23 @@ const SignupPage: React.FC = () => {
     setSuccess(null);
     
     try {
-      const { error, data: signUpData } = await signUp(data.email, data.password);
+      const { error } = await signUp(
+        data.email, 
+        data.password, 
+        {
+          firstName: data.firstName,
+          lastName: data.lastName,
+        }
+      );
       
       if (error) {
         setError(error.message);
       } else {
-        // Check if email confirmation is required
-        if (signUpData.user && !signUpData.session) {
-          setSuccess(
-            'Account created successfully! Please check your email to confirm your account before signing in.'
-          );
-        } else {
-          // User is automatically signed in
-          setSuccess('Account created successfully! Redirecting...');
-          setTimeout(() => {
-            navigate('/');
-          }, 2000);
-        }
+        // Since email confirmation is disabled, user is automatically signed in
+        setSuccess('Account created successfully! Redirecting...');
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
@@ -96,6 +98,46 @@ const SignupPage: React.FC = () => {
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+            <div className="grid grid-cols-2 gap-4">
+              <div className={styles.inputGroup}>
+                <Label htmlFor="firstName" className={styles.label}>
+                  First Name
+                </Label>
+                <div className={styles.inputWrapper}>
+                  <User className={styles.inputIcon} />
+                  <Input
+                    id="firstName"
+                    type="text"
+                    placeholder="First name"
+                    className={styles.input}
+                    {...register('firstName')}
+                  />
+                </div>
+                {errors.firstName && (
+                  <p className={styles.errorText}>{errors.firstName.message}</p>
+                )}
+              </div>
+
+              <div className={styles.inputGroup}>
+                <Label htmlFor="lastName" className={styles.label}>
+                  Last Name
+                </Label>
+                <div className={styles.inputWrapper}>
+                  <User className={styles.inputIcon} />
+                  <Input
+                    id="lastName"
+                    type="text"
+                    placeholder="Last name"
+                    className={styles.input}
+                    {...register('lastName')}
+                  />
+                </div>
+                {errors.lastName && (
+                  <p className={styles.errorText}>{errors.lastName.message}</p>
+                )}
+              </div>
+            </div>
+
             <div className={styles.inputGroup}>
               <Label htmlFor="email" className={styles.label}>
                 Email Address

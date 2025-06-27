@@ -21,14 +21,15 @@ import {
 import UserProfile from '@/components/UserProfile';
 import styles from '../fStyles/HomePage.styles';
 
+interface Project {
+  id: number;
+  name: string;
+  color: string;
+}
+
 const HomePage: React.FC = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [projects] = useState([
-    { id: 1, name: 'Personal Tasks', color: 'bg-blue-500' },
-    { id: 2, name: 'Work Projects', color: 'bg-green-500' },
-    { id: 3, name: 'Shopping List', color: 'bg-purple-500' },
-    { id: 4, name: 'Home Maintenance', color: 'bg-orange-500' },
-  ]);
+  const [projects] = useState<Project[]>([]);
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -143,8 +144,8 @@ const HomePage: React.FC = () => {
                 <CardTitle className={styles.statTitle}>Total Tasks</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className={styles.statValue}>24</p>
-                <p className={styles.statChange}>+3 from yesterday</p>
+                <p className={styles.statValue}>0</p>
+                <p className={styles.statChange}>No tasks yet</p>
               </CardContent>
             </Card>
             <Card className={styles.statCard}>
@@ -152,8 +153,8 @@ const HomePage: React.FC = () => {
                 <CardTitle className={styles.statTitle}>Completed</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className={styles.statValue}>18</p>
-                <p className={styles.statChange}>75% completion rate</p>
+                <p className={styles.statValue}>0</p>
+                <p className={styles.statChange}>No completed tasks</p>
               </CardContent>
             </Card>
             <Card className={styles.statCard}>
@@ -161,8 +162,8 @@ const HomePage: React.FC = () => {
                 <CardTitle className={styles.statTitle}>In Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className={styles.statValue}>4</p>
-                <p className={styles.statChange}>2 due today</p>
+                <p className={styles.statValue}>0</p>
+                <p className={styles.statChange}>No tasks in progress</p>
               </CardContent>
             </Card>
             <Card className={styles.statCard}>
@@ -170,8 +171,8 @@ const HomePage: React.FC = () => {
                 <CardTitle className={styles.statTitle}>Overdue</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className={styles.statValue}>2</p>
-                <p className={styles.statChange}>Needs attention</p>
+                <p className={styles.statValue}>0</p>
+                <p className={styles.statChange}>No overdue tasks</p>
               </CardContent>
             </Card>
           </div>
@@ -184,38 +185,7 @@ const HomePage: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className={styles.taskList}>
-                <div className={styles.taskItem}>
-                  <div className={styles.taskCheckbox} />
-                  <div className={styles.taskContent}>
-                    <h4 className={styles.taskTitle}>
-                      Complete project proposal
-                    </h4>
-                    <Badge variant="secondary" className={styles.taskProject}>
-                      Work Projects
-                    </Badge>
-                  </div>
-                  <span className={styles.taskDate}>Today</span>
-                </div>
-                <div className={styles.taskItem}>
-                  <div className={styles.taskCheckbox} />
-                  <div className={styles.taskContent}>
-                    <h4 className={styles.taskTitle}>Buy groceries</h4>
-                    <Badge variant="secondary" className={styles.taskProject}>
-                      Shopping List
-                    </Badge>
-                  </div>
-                  <span className={styles.taskDate}>Tomorrow</span>
-                </div>
-                <div className={styles.taskItem}>
-                  <div className={styles.taskCheckbox} />
-                  <div className={styles.taskContent}>
-                    <h4 className={styles.taskTitle}>Fix kitchen sink</h4>
-                    <Badge variant="secondary" className={styles.taskProject}>
-                      Home Maintenance
-                    </Badge>
-                  </div>
-                  <span className={styles.taskDate}>This week</span>
-                </div>
+                <p className="text-gray-500 text-center py-8">No tasks yet. Create your first task to get started!</p>
               </div>
             </CardContent>
           </Card>

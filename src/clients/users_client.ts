@@ -6,6 +6,7 @@ export const createUser = async (
   first_name: string,
   last_name: string
 ) => {
+  console.log(supabase.auth.getSession())
   const { data, error } = await supabase.rpc('create_user', {
     p_email: email,
     p_first_name: first_name,
